@@ -3,13 +3,17 @@ import ChartBar from './ChartBar'
 import './Chart.css'
 
 const Chart = (props) => {
+
+  const datapointsValue = props.datapoints.map( datapoint => datapoint.value);
+  const totalMaximum = Math.max(...datapointsValue);
+
   return (
     <div className='chart'>
         {props.datapoints.map(datapoint => 
         <ChartBar 
             value={datapoint.value} 
             label={datapoint.label} 
-            maxValue={null}
+            maxValue={totalMaximum}
             key={datapoint.label}
         />)}
     </div>

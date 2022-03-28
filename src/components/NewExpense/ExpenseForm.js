@@ -3,32 +3,19 @@ import './ExpenseForm.css'
 
 const ExpenseForm = (props) =>{
 
+    const [isFormVisible,setFormVisible] = useState(false);
+
     const [EnteredTitle,setEnteredTitle] = useState('');
     const [EnteredAmount,setEnteredAmount] = useState('');
     const [EnteredDate,setEnteredDate] = useState('');
 
-    // const [UserInput,setUserInput] = useState({
-    //     EnteredTitle  : '',
-    //     EnteredAmount : '',
-    //     EnteredDate   : ''
-    // })
-
     const titleChangeHandler = (e) =>{
-    //    setUserInput((prevState)=>{
-    //        return {...prevState, EnteredTitle : e.target.value}
-    //    })
         setEnteredTitle(e.target.value)
     }
     const amountChangeHandler = (e) =>{
-        // setUserInput((prevState)=>{
-        //     return {...prevState, EnteredAmount : e.target.value}
-        // })
         setEnteredAmount(e.target.value)
     }
     const dateChangeHandler = (e) =>{
-        // setUserInput((prevState)=>{
-        //     return {...prevState, EnteredDate : e.target.value}
-        // })
         setEnteredDate(e.target.value)
     }
     const submitHandler = (event) => {
@@ -46,7 +33,20 @@ const ExpenseForm = (props) =>{
         setEnteredDate('')
     }
 
-    // console.log(EnteredTitle,' ', EnteredAmount, ' ',EnteredDate);
+    const toggleFormVisible = (e)=>{
+        e.preventDefault();
+        if(isFormVisible){
+            setFormVisible(false);
+        }else{
+            setFormVisible(true);
+        }
+    }
+
+  
+    if(!isFormVisible){
+        return <button onClick={toggleFormVisible}>Add New Expense</button>
+    }
+
     return (
         <form onSubmit={submitHandler}>
             <div className="new-expense__controls">
@@ -65,6 +65,7 @@ const ExpenseForm = (props) =>{
             </div>
 
             <div className="new-expense__actions">
+                <button onClick={toggleFormVisible}>Cancel</button>
                 <button type="submit">Add Expense</button>
             </div>
         </form>
